@@ -27,15 +27,15 @@ plotTraits <- function(genotypes, phenotypes, pheno.col = c(1, 2), marker = 1, d
   abline( v = seq(min1, max1, (max1 - min1) / 40), lty = 3, col = colors()[ 440 ] )
   abline( h = seq(min2, max2, (max2 - min2) / 40), lty = 3, col = colors()[ 440 ] )
 
-  points(t1, t2, pch=19, cex=0.5, col = geno)
+  points(t1, t2, pch=19, col = geno)
   cors <- NULL
   for(x in 1:length(unique(geno))){
     idx <- which(geno == unique(geno)[x])
     cors <- c(cors, cor(t1[idx], t2[idx],use="pair"))
     abline(inter[x], betas[x], col = x, lwd=1.5)
   }
-  legend("topright", title="Correlation", col=unique(geno), legend = round(cors, digits = 2), lwd=1, cex=0.7)
-  legend("topleft",  title="Slope", col=unique(geno), legend = round(betas, digits = 2), lwd=1, cex=0.7)
+  legend("topright", title="Correlation", col=unique(geno), legend = round(cors, digits = 2), lwd=1)
+  legend("topleft",  title="Slope", col=unique(geno), legend = round(betas, digits = 2), lwd=1)
 }
 
 # end of plot.traits.R

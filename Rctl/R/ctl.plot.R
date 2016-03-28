@@ -70,7 +70,9 @@ plotExpression <- function(genotypes, phenotypes, traits=c("X3.Hydroxypropyl", "
   return(result)
 }
 
-plot.CTLscan <- function(x, mapinfo = NULL, type = c("barplot","gwas","line"), onlySignificant = TRUE, significance = 0.05, gap = 25, plot.cutoff = FALSE, do.legend=TRUE, cex.legend=1.0, ydim=NULL, ylab="-log10(P-value)", ...){
+plot.CTLscan <- function(x, mapinfo = NULL, type = c("barplot","gwas","line"), onlySignificant = TRUE, 
+                         significance = 0.05, gap = 25, plot.cutoff = FALSE, do.legend=TRUE, ydim=NULL, 
+                         ylab="-log10(P-value)", ...){
 
   if(missing(x) || is.null(x)) stop("argument 'x' is missing, with no default")
 
@@ -97,7 +99,7 @@ plot.CTLscan <- function(x, mapinfo = NULL, type = c("barplot","gwas","line"), o
   }
   main <- "" #paste("Phenotype contribution to CTL of",ctl.name(x))
   plot(c(0.5, maxX+0.5), ydim, type='n',xlab="", ylab=ylab, main=main, ...)
-  points(pointsx, rep(0, length(pointsx)), lwd = 1, pch="|",cex = 0.2)
+  points(pointsx, rep(0, length(pointsx)), lwd = 1, pch="|")
 
   i <- 1;
   ntraits  <- ncol(ctlsubset)
@@ -148,10 +150,10 @@ plot.CTLscan <- function(x, mapinfo = NULL, type = c("barplot","gwas","line"), o
   }
   # Plot the legend(s)
   if(do.legend){
-    if(plot.cutoff) legend("topright", mleg, col=c("green"), lty=rep(2), lwd=1, cex=cex.legend, bty='n')
+    if(plot.cutoff) legend("topright", mleg, col=c("green"), lty=rep(2), lwd=1, bty='n')
     lty <- 1:ntraits
     if(type[1] == "barplot") lty <- 1
-    legend("topleft", colnames(ctlsubset), col=mycolors, lwd=1, lty=lty, cex=cex.legend, bty='n')
+    legend("topleft", colnames(ctlsubset), col=mycolors, lwd=1, lty=lty, bty='n')
   }
   # Plot the summarized lines and QTLs
   if(is.null(mapinfo)){
@@ -221,7 +223,7 @@ plot.CTLpermute <- function(x, type="s", ...){
     lines(rbind(c(significant[idx],-1),c(significant[idx],y)),lty=2,col=mycolors[idx])
     idx <- idx+1
   }
-  legend("topright",c("CTL-FDR: 5%","CTL-FDR: 1%","CTL-FDR: 0.1%"), col=mycolors, lty=2, lwd=1, cex=0.7)
+  legend("topright",c("CTL-FDR: 5%","CTL-FDR: 1%","CTL-FDR: 0.1%"), col=mycolors, lty=2, lwd=1)
 }
 
 # end of ctl.plot.R

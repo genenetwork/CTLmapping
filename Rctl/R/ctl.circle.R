@@ -18,10 +18,10 @@ draw.spline <- function(cn1, cn2, via = c(0,0), lwd = 1, type = 0, col="blue", .
   xspline(x, y, shape=0, lwd=lwd, border=col, lty=lty, ...)
 }
 
-draw.element <- function(x, y, title, cex=1, bg.col = "white", border.col="black"){
-  points(cbind(x, y), cex=cex*4, pch=19, col=bg.col)
-  points(cbind(x, y), cex=cex*4, col= border.col)
-  text(x, y, title, cex=cex)
+draw.element <- function(x, y, title, bg.col = "white", border.col="black"){
+  points(cbind(x, y), pch=19, col=bg.col)
+  points(cbind(x, y), col= border.col)
+  text(x, y, title)
 }
 
 circle.loc <- function(nt, size = 1.0){
@@ -60,7 +60,7 @@ mapinfotomarkerlocs <- function(mapinfo, gap, type=c("line","circle")){
   invisible(markerlocs)
 }
 
-ctl.circle <- function(CTLobject, mapinfo, pheno.col, significance=0.05, gap=50, cex=1, verbose=FALSE){
+ctl.circle <- function(CTLobject, mapinfo, pheno.col, significance=0.05, gap=50, verbose=FALSE){
   if(missing(CTLobject) || is.null(CTLobject)) stop("argument 'CTLobject' is missing, with no default")
   if(missing(pheno.col)) pheno.col <- 1:length(CTLobject) 
 
@@ -74,7 +74,7 @@ ctl.circle <- function(CTLobject, mapinfo, pheno.col, significance=0.05, gap=50,
   fromtlocs  <- circle.loc(length(nfrom(ctls)), 1.0)
   totlocs    <- circle.loc(length(nto(ctls)), 0.4)
   plot(c(-1.1, 1.1), c(-1.1, 1.1), type = "n", axes = FALSE, xlab = "", ylab = "")
-  points(markerlocs, pch=20, cex=(cex/2))   # Plot the markers
+  points(markerlocs, pch=20)   # Plot the markers
   for(x in 1:nrow(ctls)){                   # Plot the ctls
     from <- fromtlocs[which(nfrom(ctls) %in% ctls[x,1]),]
     to   <- totlocs[which(nto(ctls) %in% ctls[x,3]),]
@@ -82,10 +82,10 @@ ctl.circle <- function(CTLobject, mapinfo, pheno.col, significance=0.05, gap=50,
     draw.spline(from, to, via, lwd=(ctls[x,4]/5)+1, col=ctls[x,1])
   } # All done now plot the trait elements
   for(x in 1:nrow(fromtlocs)){ 
-    draw.element(fromtlocs[x,1], fromtlocs[x,2], pheno.col[nfrom(ctls)[x]], cex=cex) 
+    draw.element(fromtlocs[x,1], fromtlocs[x,2], pheno.col[nfrom(ctls)[x]]) 
   }
   for(x in 1:nrow(totlocs)){ 
-    draw.element(totlocs[x,1], totlocs[x,2], nto(ctls)[x], cex=cex) 
+    draw.element(totlocs[x,1], totlocs[x,2], nto(ctls)[x])
   }
 }
 

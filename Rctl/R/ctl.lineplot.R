@@ -8,7 +8,7 @@
 # Line plot routines for CTL analysis
 #
 
-ctl.lineplot <- function(CTLobject, mapinfo, pheno.col, significance = 0.05, gap = 50, col="orange", bg.col = "lightgray", cex = 1, verbose = FALSE){
+ctl.lineplot <- function(CTLobject, mapinfo, pheno.col, significance = 0.05, gap = 50, col="orange", bg.col = "lightgray", verbose = FALSE){
   if(missing(CTLobject) || is.null(CTLobject)) stop("argument 'CTLobject' is missing, with no default")
   if(missing(pheno.col)) pheno.col <- 1:length(CTLobject) 
   n.markers  <- nrow(CTLobject[[1]]$ctl)
@@ -33,7 +33,7 @@ ctl.lineplot <- function(CTLobject, mapinfo, pheno.col, significance = 0.05, gap
   tolocs   <- total.l / (length(nto(ctls))+1)
 
   plot(xdim, c(-1.1, 1.1), t='n', axes = FALSE, xlab = "", ylab = "")
-  points(markerlocs, pch=20, cex=(cex/2))
+  points(markerlocs, pch = 20)
   for(x in 1:nrow(ctls)){ # Plot the ctls
       from <- c(which(nfrom(ctls) %in% ctls[x,1]) * fromlocs,  0.6)
       to   <- c(which(nto(ctls) %in% ctls[x,3]) * tolocs, -0.6)
@@ -47,11 +47,11 @@ ctl.lineplot <- function(CTLobject, mapinfo, pheno.col, significance = 0.05, gap
   } # All done now plot the trait elements
   for(x in 1:length(nfrom(ctls))){
     px <- which(nfrom(ctls) %in% nfrom(ctls)[x]) * fromlocs
-    draw.element(px, 0.6, nfrom(ctls)[x], cex=cex, bg.col=bg.col)
+    draw.element(px, 0.6, nfrom(ctls)[x], bg.col=bg.col)
   }
   for(x in 1:length(nto(ctls))){
     px <- which(nto(ctls) %in% nto(ctls)[x]) * tolocs
-    draw.element(px, -0.6, nto(ctls)[x], cex=cex, bg.col=bg.col)
+    draw.element(px, -0.6, nto(ctls)[x], bg.col=bg.col)
   }
   box()
   invisible(ctls)

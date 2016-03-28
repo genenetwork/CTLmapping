@@ -35,15 +35,15 @@ internal.image <- function(mymatrix, colorrange = whiteblack, mainlabel="Image",
   if(missing(mymatrix)) stop("argument 'mymatrix' is missing, with no default")
   if(!is.null(mymatrix)){ 
     image(1:ncol(mymatrix),1:nrow(mymatrix),t(mymatrix), main=mainlabel, yaxt="n", 
-          xaxt="n", ylab="", xlab="",col=c("white",gray.colors(4)[4:1]), cex.main=0.7, 
+          xaxt="n", ylab="", xlab="",col=c("white",gray.colors(4)[4:1]), 
           breaks = breaks,add=add)
-    axis(2,rownames(mymatrix),at=1:nrow(mymatrix),las=2,cex.axis=0.5)
+    axis(2,rownames(mymatrix), at = 1:nrow(mymatrix), las = 2)
     if(do.grid){
       abline(h=seq(-0.5,nrow(mymatrix)+0.5,1),col=grid.col,lwd=1)
       if(missing(marker_info)) abline(v=seq(-0.5,ncol(mymatrix)+0.5,1),col=grid.col,lwd=1)
     }
     if(missing(marker_info)){
-      axis(1,colnames(mymatrix),at=1:ncol(mymatrix),las=2,cex.axis=0.6)
+      axis(1,colnames(mymatrix), at = 1:ncol(mymatrix), las = 2)
     }else{
       addChromosomeLines(marker_info)
     }
@@ -61,7 +61,7 @@ addChromosomeLines <- function(markerinfo, col='black'){
   }
   abline(v=.5 + chr_ends, lwd=1, lty=2, col=col)
   for(x in 1:length(chr_start)){
-    axis(1,at=(chr_start[x]+chr_ends[x])/2,paste("Chr",unique(markerinfo[,1])[x]),cex.axis=0.3)
+    axis(1,at=(chr_start[x]+chr_ends[x])/2,paste("Chr",unique(markerinfo[,1])[x]))
   }
   box()
 }
